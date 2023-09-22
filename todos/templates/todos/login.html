@@ -1,0 +1,15 @@
+{% extends 'todos/base.html' %}
+
+{% block content %}
+<div class="header-bar">
+    <h1>Login</h1>
+</div>
+<div class="card-body mt-3">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="button mt-3" type="submit" value="Login">
+    </form>
+    <p class="">Don't have an account? <a href="{% url 'register' %}" style="color: blue;">Register</a></p>
+</div>
+{% endblock %}

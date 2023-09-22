@@ -1,0 +1,21 @@
+{% extends 'todos/base.html' %}
+
+{% block content %}
+
+<div class="header-bar">
+    <a href="{% url 'tasks' %}"><strong>&#8592;</strong></a>
+</div>
+
+<center class="card-body">
+    <form method="POST">
+        {% csrf_token %}
+        <p>Are your sure you want to delete <b>"{{task}}"?</b>  </p>
+        <!-- <input class="btn btn-danger btn-lg" type="submit" value="OK" /> -->
+        <button type="submit" class="button">OK</button>
+        
+    </form>
+</center>
+
+
+
+{% endblock content %}

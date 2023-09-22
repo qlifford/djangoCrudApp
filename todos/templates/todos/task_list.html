@@ -1,0 +1,53 @@
+{% extends 'todos/base.html' %} {% block content %}
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <div class="header-bar">
+        <div>
+            <h1>Hi {{request.user|title}}</h1>
+        </div>
+
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </div>
+
+    <div id="search-add-wrapper">
+        <form method="GET" style="display: flex;">
+            <input type='text' name='search-area' placeholder="Search products" value="{{search_input}}">
+            <input class="button" style="margin-left: 5px;" type="submit" value='Search'>
+        </form>
+        {% if tasks|length > 0 %}
+            <a style="color: blue; font-size: 18px; text-decoration: none;" href="{% url 'task-create' %}">Create Product</a>
+        {% endif %}
+    </div>
+
+
+    <div id="tasklist" class="task-items-wrapper">
+        {% for task in tasks %}
+        <div class="task-wrapper">
+            <div class="task-title">
+                {% if task.completed %}
+                    <div class="task-complete-icon"></div>
+                    <i><s style="color: red;"><a href="{% url 'task' task.id %}">{{task}}</a></s></i>
+                {% else %}
+                    <div class="task-incomplete-icon"></div>
+                    <a href="{% url 'task-update' task.id %}">{{task}}</a>
+                {% endif %}
+            </div>
+        <div class="task-controls">
+            <button class="btn btn-default"><a style="color: red; text-decoration: none;" href="{% url 'task-delete' task.id %}">Delete</a></button>
+            <!-- <span class="handle">&nbsp;&#10247;</span> -->
+        </div>
+    </div>
+
+    {% empty %}
+    <div style="text-align: center; padding-bottom: 10px; line-height: 1em;">
+        <h3>You have no products created yet.</h3>
+        <h3>Create a <a style="text-decoration: none; color: #e53935;" href="{% url 'task-create' %}">New Product</a> ! </h3>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}

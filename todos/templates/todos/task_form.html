@@ -1,0 +1,21 @@
+{% extends 'todos/base.html' %}
+
+{% block content %}
+
+<div class="header-bar">
+    <h2>Products Form</h2>
+    <h2>
+        <a href="{% url 'tasks' %}">&#8592;</a>
+    </h2>
+</div>
+
+
+<div class="card-body">
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="button" type="submit" value="Save">
+    </form>
+</div>
+
+{% endblock %}
